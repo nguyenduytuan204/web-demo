@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So Sánh - SuperCar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-header {
+            padding: 12rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+            text-align: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .compare-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .car-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .selector-card {
+            background: var(--secondary-dark);
+            border: 2px dashed var(--border-subtle);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .selector-card:hover {
+            border-color: var(--accent-red);
+            background: rgba(196, 30, 30, 0.05);
+        }
+
+        .selector-card svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            stroke: var(--accent-gold);
+        }
+
+        .selector-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .selector-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .selected-car {
+            background: var(--secondary-dark);
+            border: 2px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .selected-car img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .selected-car h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .selected-car .brand {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-red);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(196, 30, 30, 0.4);
+        }
+
+        .compare-button {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-red), #9a1515);
+            border: none;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 3rem 0;
+        }
+
+        .compare-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(196, 30, 30, 0.4);
+        }
+
+        .compare-button:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .comparison-table {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: var(--primary-dark);
+            padding: 1.5rem;
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-red);
+        }
+
+        .comparison-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .label-cell {
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table .value-cell {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .winner {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">SUPERCAR</div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="compare.html">Compare</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <svg class="account-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>So Sánh Siêu Xe</h1>
+        <p>Chọn tối đa 3 mẫu xe để so sánh chi tiết</p>
+    </section>
+
+    <!-- Compare Section -->
+    <section class="compare-section">
+        <div class="car-selector" id="carSelector">
+            <div class="selector-card" onclick="selectCar(1)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <h3>Chọn Xe 1</h3>
+                <p>Nhấn để chọn xe đầu tiên</p>
+            </div>
+
+            <div class="selector-card" onclick="selectCar(2)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <h3>Chọn Xe 2</h3>
+                <p>Nhấn để chọn xe thứ hai</p>
+            </div>
+
+            <div class="selector-card" onclick="selectCar(3)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <h3>Chọn Xe 3</h3>
+                <p>Nhấn để chọn xe thứ ba (tùy chọn)</p>
+            </div>
+        </div>
+
+        <button class="compare-button" id="compareBtn" disabled>So Sánh Ngay</button>
+
+        <!-- Comparison Table (Hidden by default) -->
+        <div class="comparison-table" id="comparisonTable" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">Thông Số</th>
+                        <th>Ferrari SF90</th>
+                        <th>Lamborghini Revuelto</th>
+                        <th>McLaren 765LT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label-cell">Giá Khởi Điểm</td>
+                        <td class="value-cell">45,8 tỷ VNĐ</td>
+                        <td class="value-cell winner">52,3 tỷ VNĐ</td>
+                        <td class="value-cell">38,5 tỷ VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Động Cơ</td>
+                        <td class="value-cell">V8 Hybrid</td>
+                        <td class="value-cell">V12 Hybrid</td>
+                        <td class="value-cell">V8 Twin-Turbo</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Công Suất</td>
+                        <td class="value-cell">1000 HP</td>
+                        <td class="value-cell winner">1015 HP</td>
+                        <td class="value-cell">765 HP</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Mô-men Xoắn</td>
+                        <td class="value-cell">800 Nm</td>
+                        <td class="value-cell winner">850 Nm</td>
+                        <td class="value-cell">800 Nm</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">0-100 km/h</td>
+                        <td class="value-cell winner">2.5s</td>
+                        <td class="value-cell winner">2.5s</td>
+                        <td class="value-cell">2.8s</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Tốc Độ Tối Đa</td>
+                        <td class="value-cell">340 km/h</td>
+                        <td class="value-cell winner">350 km/h</td>
+                        <td class="value-cell">330 km/h</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Hộp Số</td>
+                        <td class="value-cell">8-Speed DCT</td>
+                        <td class="value-cell">8-Speed DCT</td>
+                        <td class="value-cell">7-Speed DCT</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Dẫn Động</td>
+                        <td class="value-cell">AWD</td>
+                        <td class="value-cell">AWD</td>
+                        <td class="value-cell">RWD</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Trọng Lượng</td>
+                        <td class="value-cell">1570 kg</td>
+                        <td class="value-cell">1772 kg</td>
+                        <td class="value-cell winner">1229 kg</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Công Nghệ</td>
+                        <td class="value-cell">eManettino, eSSC</td>
+                        <td class="value-cell">LDVI 2.0, 4WS</td>
+                        <td class="value-cell">Proactive Chassis Control II</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SuperCar</h3>
+                <p style="color: var(--text-muted); line-height: 1.8;">
+                    Nơi hội tụ những siêu xe đẳng cấp thế giới.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="models.html">Dòng Xe</a></li>
+                    <li><a href="compare.html">So Sánh</a></li>
+                    <li><a href="news.html">Tin Tức</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Hotline: 1900 xxxx</a></li>
+                    <li><a href="#">Email: info@supercar.vn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SuperCar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Example data for selected cars
+        const carData = {
+            1: {
+                brand: 'Ferrari',
+                name: 'SF90 Stradale',
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop'
+            },
+            2: {
+                brand: 'Lamborghini',
+                name: 'Revuelto',
+                image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&h=600&fit=crop'
+            },
+            3: {
+                brand: 'McLaren',
+                name: '765LT',
+                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop'
+            }
+        };
+
+        let selectedCars = new Set();
+
+        function selectCar(slot) {
+            // In production, this would open a modal to select from available cars
+            const car = carData[slot];
+            const selector = document.querySelectorAll('.selector-card')[slot - 1];
+            
+            if (selectedCars.has(slot)) {
+                // Remove car
+                selectedCars.delete(slot);
+                selector.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    <h3>Chọn Xe ${slot}</h3>
+                    <p>Nhấn để chọn xe</p>
+                `;
+                selector.classList.remove('selected-car');
+            } else {
+                // Add car
+                selectedCars.add(slot);
+                selector.classList.add('selected-car');
+                selector.innerHTML = `
+                    <button class="remove-btn" onclick="event.stopPropagation(); selectCar(${slot})">×</button>
+                    <img src="${car.image}" alt="${car.name}">
+                    <div class="brand">${car.brand}</div>
+                    <h3>${car.name}</h3>
+                `;
+            }
+
+            // Enable compare button if at least 2 cars selected
+            document.getElementById('compareBtn').disabled = selectedCars.size < 2;
+        }
+
+        // Show comparison table
+        document.getElementById('compareBtn').addEventListener('click', function() {
+            document.getElementById('comparisonTable').style.display = 'block';
+            this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            setTimeout(() => {
+                document.getElementById('comparisonTable').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        });
+    </script>
+</body>
+</html>

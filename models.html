@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Models - SuperCar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-header {
+            padding: 12rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+            text-align: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .models-page {
+            padding: 4rem 2rem;
+        }
+
+        .models-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+        }
+
+        .sidebar {
+            background: var(--secondary-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .filter-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .sort-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--secondary-dark);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .results-count {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .sort-select {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-dark);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-light);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 968px) {
+            .models-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">SUPERCAR</div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="compare.html">Compare</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <svg class="account-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Bộ Sưu Tập Siêu Xe</h1>
+        <p>Khám phá dòng xe đẳng cấp thế giới</p>
+    </section>
+
+    <!-- Models Page Content -->
+    <section class="models-page">
+        <div class="models-container">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar">
+                <h3>Lọc Theo</h3>
+                
+                <div class="filter-group">
+                    <h4 style="margin-bottom: 1rem; font-size: 0.9rem;">Thương Hiệu</h4>
+                    <label><input type="checkbox"> Ferrari (12)</label>
+                    <label><input type="checkbox"> Lamborghini (8)</label>
+                    <label><input type="checkbox"> McLaren (10)</label>
+                    <label><input type="checkbox"> Bugatti (4)</label>
+                    <label><input type="checkbox"> Porsche (15)</label>
+                    <label><input type="checkbox"> Aston Martin (7)</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4 style="margin-bottom: 1rem; font-size: 0.9rem;">Động Cơ</h4>
+                    <label><input type="checkbox"> V8 (18)</label>
+                    <label><input type="checkbox"> V10 (12)</label>
+                    <label><input type="checkbox"> V12 (15)</label>
+                    <label><input type="checkbox"> Hybrid (8)</label>
+                    <label><input type="checkbox"> Electric (3)</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4 style="margin-bottom: 1rem; font-size: 0.9rem;">Kiểu Dáng</h4>
+                    <label><input type="checkbox"> Coupe (25)</label>
+                    <label><input type="checkbox"> Convertible (18)</label>
+                    <label><input type="checkbox"> SUV (8)</label>
+                    <label><input type="checkbox"> Roadster (5)</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4 style="margin-bottom: 1rem; font-size: 0.9rem;">Khoảng Giá</h4>
+                    <label><input type="checkbox"> Dưới 10 tỷ (5)</label>
+                    <label><input type="checkbox"> 10-30 tỷ (20)</label>
+                    <label><input type="checkbox"> 30-50 tỷ (18)</label>
+                    <label><input type="checkbox"> Trên 50 tỷ (13)</label>
+                </div>
+            </aside>
+
+            <!-- Products Grid -->
+            <div>
+                <div class="sort-controls">
+                    <div class="results-count">Hiển thị <strong>56</strong> kết quả</div>
+                    <select class="sort-select">
+                        <option>Mới Nhất</option>
+                        <option>Giá: Thấp → Cao</option>
+                        <option>Giá: Cao → Thấp</option>
+                        <option>Tên: A → Z</option>
+                        <option>Công Suất</option>
+                    </select>
+                </div>
+
+                <div class="models-grid">
+                    <!-- Model Cards (reusing existing cards) -->
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop" alt="Ferrari SF90" class="model-image">
+                            <div class="model-badge">New</div>
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">Ferrari</div>
+                            <h3 class="model-name">SF90 Stradale</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">1000 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">2.5s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">340 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 45,8 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&h=600&fit=crop" alt="Lamborghini Revuelto" class="model-image">
+                            <div class="model-badge">Hot</div>
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">Lamborghini</div>
+                            <h3 class="model-name">Revuelto</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">1015 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">2.5s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">350 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 52,3 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop" alt="McLaren 765LT" class="model-image">
+                            <div class="model-badge">Limited</div>
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">McLaren</div>
+                            <h3 class="model-name">765LT</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">765 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">2.8s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">330 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 38,5 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f1618?w=800&h=600&fit=crop" alt="Porsche 911 GT3 RS" class="model-image">
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">Porsche</div>
+                            <h3 class="model-name">911 GT3 RS</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">525 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">3.2s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">296 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 28,9 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&h=600&fit=crop" alt="Bugatti Chiron" class="model-image">
+                            <div class="model-badge">Exclusive</div>
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">Bugatti</div>
+                            <h3 class="model-name">Chiron</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">1500 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">2.4s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">420 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 78,5 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop" alt="Ferrari F8 Tributo" class="model-image">
+                        </div>
+                        <div class="model-content">
+                            <div class="model-brand">Ferrari</div>
+                            <h3 class="model-name">F8 Tributo</h3>
+                            <div class="model-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Power</div>
+                                    <div class="spec-value">720 HP</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">0-100</div>
+                                    <div class="spec-value">2.9s</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Top Speed</div>
+                                    <div class="spec-value">340 km/h</div>
+                                </div>
+                            </div>
+                            <div class="model-price">
+                                <span class="price-label">Từ</span> 32,8 tỷ VNĐ
+                            </div>
+                            <button class="model-button">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SuperCar</h3>
+                <p style="color: var(--text-muted); line-height: 1.8;">
+                    Nơi hội tụ những siêu xe đẳng cấp thế giới.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="models.html">Dòng Xe</a></li>
+                    <li><a href="compare.html">So Sánh</a></li>
+                    <li><a href="news.html">Tin Tức</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Hotline: 1900 xxxx</a></li>
+                    <li><a href="#">Email: info@supercar.vn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SuperCar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
