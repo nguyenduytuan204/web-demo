@@ -200,3 +200,22 @@ brandItems.forEach(item => {
         introBox.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 });
+
+function viewDetail(carId) {
+    window.location.href = `product-detail.html?id=${carId}`;
+}
+
+const brandItemsSlogan = document.querySelectorAll('.brand-item');
+const sloganText = document.getElementById('sloganText');
+
+brandItemsSlogan.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        sloganText.textContent = item.dataset.slogan;
+        sloganText.style.opacity = 1;
+    });
+
+    item.addEventListener('mouseleave', () => {
+        sloganText.style.opacity = 5;
+    });
+});
+

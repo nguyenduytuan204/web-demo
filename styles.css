@@ -795,71 +795,6 @@ body {
         transform: translateY(0);
     }
 }
-/* Brand Intro Video Section */
-.brand-intro {
-    position: relative;
-    max-width: 1200px;
-    height: 420px;
-    margin: 80px auto 0;
-    border-radius: 20px;
-    overflow: hidden;
-    display: none;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-}
-
-.brand-intro video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.brand-intro-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.85),
-        rgba(0,0,0,0.4)
-    );
-    z-index: 1;
-}
-
-.brand-intro-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 50px;
-    gap: 50px;
-}
-
-.brand-intro-content img {
-    width: 360px;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    transition: transform 0.4s ease;
-}
-
-.brand-intro-content img:hover {
-    transform: scale(1.05);
-}
-
-.brand-text h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 34px;
-    color: #d4af37;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-}
-
-.brand-text p {
-    color: #ddd;
-    font-size: 17px;
-    line-height: 1.9;
-    max-width: 500px;
-}
 
 /* Mobile */
 @media (max-width: 768px) {
@@ -908,4 +843,147 @@ body {
     align-items: center;
     color: #fff;
     padding: 40px;
+}
+/* ===== BUTTON XEM CHI TIẾT ===== */
+.btn-detail {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #ff1e00, #ff6a00);
+    border: none;
+    border-radius: 14px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 30px rgba(255, 50, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+/* icon */
+.btn-detail svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    transition: transform 0.35s ease;
+}
+
+/* hover */
+.btn-detail:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(255, 80, 0, 0.6);
+}
+
+/* icon bay sang phải */
+.btn-detail:hover svg {
+    transform: translateX(6px);
+}
+
+/* hiệu ứng ánh sáng */
+.btn-detail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+    transition: 0.6s;
+}
+
+.btn-detail:hover::before {
+    left: 100%;
+}
+/* ===== BRAND SECTION ===== */
+.brand-section {
+    background: linear-gradient(180deg, #0b0b0b, #111);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.brand-title {
+    color: #fff;
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+}
+
+/* GRID LOGO */
+.brand-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+/* ITEM */
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.brand-item img {
+    height: 60px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.6);
+    transition: all 0.3s ease;
+}
+
+.brand-item span {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.brand-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.1);
+}
+
+.brand-item:hover span {
+    color: #f5b335;
+}
+
+/* ===== SLOGAN BOX ===== */
+.slogan-box {
+    margin-top: 50px;
+    min-height: 40px;
+}
+
+#sloganText {
+    font-size: 18px;
+    font-style: italic;
+    color: #f5b335;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+@media (max-width: 768px) {
+    .brand-grid {
+        gap: 40px;
+    }
+
+    .brand-item img {
+        height: 50px;
+    }
 }
