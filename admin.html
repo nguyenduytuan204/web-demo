@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Orders</title>
+
+    <!-- html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body {
+            background:#000;
+            color:#fff;
+            padding:40px;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width:100%;
+            border-collapse: collapse;
+            margin-top:20px;
+        }
+        th, td {
+            border:1px solid #444;
+            padding:12px;
+            text-align:center;
+        }
+        th {
+            background:#111;
+        }
+        button {
+            padding:6px 12px;
+            cursor:pointer;
+            border-radius:6px;
+        }
+        #orderBox {
+            background:#111;
+            padding:20px;
+            border-radius:12px;
+            width:420px;
+            position:absolute;
+            left:-9999px;
+            top:0;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>📊 Danh sách yêu cầu mua xe</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Khách hàng</th>
+            <th>Xe</th>
+            <th>Thời gian</th>
+            <th>PDF</th>
+        </tr>
+    </thead>
+    <tbody id="orderTable"></tbody>
+</table>
+
+<!-- KHUNG DÙNG ĐỂ XUẤT PDF -->
+<div id="orderBox">
+    <p><b>Khách hàng:</b> <span id="pdfUser"></span></p>
+    <p><b>Xe:</b> <span id="pdfCar"></span></p>
+    <p><b>Thời gian:</b> <span id="pdfTime"></span></p>
+</div>
+
+<script>
+/* ===== RENDER ĐƠN ===== */
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+const table = document.getElementById("orderTable");
+
+if (orders.length === 0) {
+    table.innerHTML = `
+        <tr>
+            <td colspan="4">❌ Chưa có đơn mua xe</td>
+        </tr>
+    `;
+} else {
+    orders.forEach((o, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${o.user}</td>
+                <td>${o.car}</td>
+                <td>${o.time}</td>
+                <td>
+                    <button type="button" onclick="exportPDF(${index})">
+                        📄 Xuất PDF
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+/* ===== XUẤT PDF ===== */
+function exportPDF(index) {
+    if (!orders[index]) {
+        alert("❌ Không tìm thấy đơn");
+        return;
+    }
+
+    const o = orders[index];
+
+    document.getElementById("pdfUser").textContent = o.user || "N/A";
+    document.getElementById("pdfCar").textContent = o.car || "N/A";
+    document.getElementById("pdfTime").textContent = o.time || "N/A";
+
+    const box = document.getElementById("orderBox");
+
+    setTimeout(() => {
+        html2pdf()
+            .from(box)
+            .set({
+                filename: `don-mua-${o.car}.pdf`,
+                margin: 10,
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            })
+            .save();
+    }, 200);
+}
+</script>
+
+</body>
+</html>

@@ -65,14 +65,6 @@ if (searchIcon) {
     });
 }
 
-// Account functionality
-const accountIcon = document.querySelector('.account-icon');
-if (accountIcon) {
-    accountIcon.addEventListener('click', function() {
-        alert('Chức năng tài khoản đang được phát triển!');
-    });
-}
-
 // Filter button functionality
 const filterButton = document.querySelector('.filter-button');
 if (filterButton) {
@@ -95,7 +87,8 @@ if (filterButton) {
 document.querySelectorAll('.model-card').forEach(card => {
     card.addEventListener('click', function(e) {
         // Don't trigger if clicking the button
-        if (!e.target.classList.contains('model-button')) {
+if (!e.target.classList.contains('model-button'))
+ {
             const modelName = this.querySelector('.model-name').textContent;
             console.log('Clicked on:', modelName);
         }
@@ -205,17 +198,119 @@ function viewDetail(carId) {
     window.location.href = `product-detail.html?id=${carId}`;
 }
 
-const brandItemsSlogan = document.querySelectorAll('.brand-item');
+const brandItems2 = document.querySelectorAll('.brand-item');
 const sloganText = document.getElementById('sloganText');
 
-brandItemsSlogan.forEach(item => {
+brandItems2.forEach(item => {
     item.addEventListener('mouseenter', () => {
         sloganText.textContent = item.dataset.slogan;
         sloganText.style.opacity = 1;
     });
 
     item.addEventListener('mouseleave', () => {
-        sloganText.style.opacity = 5;
+        sloganText.style.opacity = 0;
     });
 });
+let selectedCar = "";
+
+function buyCar(carName) {
+    const isLogin = localStorage.getItem("isLogin");
+
+    // 🔒 CHƯA ĐĂNG NHẬP
+    if (!isLogin) {
+        localStorage.setItem("selectedCar", carName);
+        localStorage.setItem("redirectAfterLogin", window.location.href);
+
+        window.location.href = "login.html";
+        return;
+    }
+
+    // ✅ ĐÃ ĐĂNG NHẬP → SANG CONTACT
+    localStorage.setItem("selectedCar", carName);
+    window.location.href = "contact.html"; // hoặc buy.html
+}
+
+
+
+document.addEventListener("DOMContentLoaded", updateAccountUI);
+
+function updateAccountUI() {
+    const icon = document.getElementById("accountIcon");
+    const name = document.getElementById("accountName");
+
+    if (!icon || !name) return;
+
+    const isLogin = localStorage.getItem("isLogin");
+    const username = localStorage.getItem("username");
+
+    if (isLogin && username) {
+        icon.classList.add("logged-in");
+        name.textContent = username;
+    } else {
+        icon.classList.remove("logged-in");
+        name.textContent = "";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateAccountUI();
+    updateAccountDropdown();
+
+    const icon = document.getElementById("accountIcon");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (icon) icon.onclick = toggleDropdown;
+    if (loginBtn) loginBtn.onclick = () => window.location.href = "login.html";
+    if (logoutBtn) logoutBtn.onclick = logout;
+});
+
+function updateAccountUI() {
+    const name = document.getElementById("accountName");
+    if (!name) return;
+
+    const isLogin = localStorage.getItem("isLogin");
+    const username = localStorage.getItem("username");
+
+    name.textContent = (isLogin && username) ? username : "";
+}
+
+function toggleDropdown() {
+    const dropdown = document.getElementById("accountDropdown");
+    if (!dropdown) return;
+
+    dropdown.style.display =
+        dropdown.style.display === "block" ? "none" : "block";
+}
+
+function updateAccountDropdown() {
+    const isLogin = localStorage.getItem("isLogin");
+    const username = localStorage.getItem("username");
+
+    const nameText = document.getElementById("dropdownUsername");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (!nameText || !loginBtn || !logoutBtn) return;
+
+    if (isLogin && username) {
+        nameText.textContent = "Xin chào, " + username;
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "block";
+    } else {
+        nameText.textContent = "Chưa đăng nhập";
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none";
+    }
+}
+
+function logout() {
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("username");
+    updateAccountUI();
+    updateAccountDropdown();
+    alert("Đã đăng xuất");
+}
+
+
 

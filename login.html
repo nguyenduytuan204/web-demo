@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập | SuperCar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+
+    <div class="login-container">
+        <h2>🔐 Đăng nhập</h2>
+
+        <input type="text" id="username" placeholder="Tên đăng nhập">
+        <input type="password" id="password" placeholder="Mật khẩu">
+
+        <button class="btn-detail" onclick="handleLogin()">Đăng nhập</button>
+
+        <p class="login-note">DEMO</p>
+    </div>
+
+<script>
+function handleLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (!user || !pass) {
+        alert("Vui lòng nhập đầy đủ");
+        return;
+    }
+
+    localStorage.setItem("isLogin", "true");
+    localStorage.setItem("username", user);
+
+    const redirect = localStorage.getItem("redirectAfterLogin") || "index.html";
+    localStorage.removeItem("redirectAfterLogin");
+    window.location.href = redirect;
+}
+
+</script>
+
+
+<script>
+function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+        alert("Vui lòng nhập đầy đủ thông tin");
+        return;
+    }
+
+    // ✅ ĐĂNG NHẬP THÀNH CÔNG
+    localStorage.setItem("isLogin", "true");
+    localStorage.setItem("username", username);
+
+    // 🔁 QUAY LẠI TRANG TRƯỚC
+    const redirect = localStorage.getItem("redirectAfterLogin");
+
+    if (redirect) {
+        localStorage.removeItem("redirectAfterLogin");
+        window.location.href = redirect;
+    } else {
+        window.location.href = "index.html";
+    }
+}
+</script>
+
+
+
+</body>
+</html>

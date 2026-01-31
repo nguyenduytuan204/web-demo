@@ -524,21 +524,24 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            console.log('Form submitted:', data);
-            alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong vòng 24 giờ.');
-            this.reset();
-        });
-    </script>
+   <script src="script.js"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Lấy dữ liệu form (nếu cần)
+    const formData = new FormData(this);
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+
+    console.log("Contact data:", data);
+
+    // 👉 CHUYỂN SANG TRANG CẢM ƠN
+    window.location.href = "thankyou.html";
+});
+</script>
+
 </body>
 </html>

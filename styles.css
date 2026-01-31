@@ -987,3 +987,223 @@ body {
         height: 50px;
     }
 }
+.btn-buy {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+}
+
+.btn-buy:hover {
+    background: linear-gradient(135deg, #ff5722, #e64a19);
+}
+/* LOGIN PAGE */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-container {
+    width: 360px;
+    background: #0f0f0f;
+    padding: 32px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255,80,0,0.4);
+}
+
+.login-container h2 {
+    color: #ff5722;
+    margin-bottom: 24px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    border: none;
+    background: #1e1e1e;
+    color: #fff;
+    outline: none;
+}
+
+.login-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+}
+
+
+
+.account-dropdown button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #222;
+    color: #fff;
+}
+
+.account-dropdown button:hover {
+    background: #ff3b3b;
+}
+/* ACCOUNT */
+.account-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.account-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* DROPDOWN */
+.account-dropdown {
+    position: absolute;
+    top: 38px;
+    right: 0;
+    background: #111;
+    border-radius: 10px;
+    padding: 10px;
+    width: 160px;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,.6);
+    z-index: 999;
+}
+
+.account-dropdown button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #222;
+    color: #fff;
+}
+
+.account-dropdown button:hover {
+    background: #ff3b3b;
+}
+/* BUY PAGE */
+.buy-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+.buy-container {
+    background: #111;
+    padding: 30px;
+    width: 360px;
+    border-radius: 16px;
+    color: #fff;
+    text-align: center;
+}
+
+.buy-container input,
+.buy-container textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.buy-container button {
+    margin-top: 12px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    background: #ff5722;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ===== THANK YOU PAGE ===== */
+.thankyou-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.thankyou-box {
+    background: #0f0f0f;
+    padding: 40px 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255,80,0,0.4);
+    animation: popup 0.6s ease forwards;
+}
+
+.checkmark {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #00e676;
+    color: #000;
+    font-size: 48px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    animation: checkScale 0.5s ease 0.3s forwards;
+    transform: scale(0);
+}
+
+.thankyou-box h2 {
+    color: #ff5722;
+    margin-bottom: 10px;
+}
+
+.thankyou-box p {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.thankyou-box span {
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes checkScale {
+    0% {
+        transform: scale(0);
+    }
+    70% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

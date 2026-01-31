@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Yêu cầu mua xe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="buy-page">
+
+<div class="buy-container">
+    <h2>📝 Yêu cầu mua xe</h2>
+    <p id="carName"></p>
+
+    <form id="orderForm">
+        <input type="text" placeholder="Họ và tên" required>
+        <input type="tel" placeholder="Số điện thoại" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Địa chỉ" required>
+        <textarea placeholder="Ghi chú thêm (nếu có)"></textarea>
+
+        <button type="submit">Gửi yêu cầu mua xe</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const car = localStorage.getItem("selectedCar");
+    const user = localStorage.getItem("username");
+
+    // Hiển thị xe đã chọn
+    document.getElementById("carName").textContent =
+        "Xe bạn chọn: " + (car || "Chưa chọn xe");
+
+    const form = document.getElementById("orderForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // ⛔ chặn reload
+
+        if (!car) {
+            alert("❌ Không có xe được chọn");
+            return;
+        }
+
+        // Lưu đơn
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+        orders.push({
+            user: user || "Khách hàng",
+            car: car,
+            time: new Date().toLocaleString("vi-VN")
+        });
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        // ✅ THÔNG BÁO CẢM ƠN
+        alert("✅ Cảm ơn bạn!\nYêu cầu mua xe đã được gửi.");
+
+        // 👉 CHUYỂN SANG TRANG THANK YOU
+        window.location.href = "thankyou.html";
+    });
+});
+</script>
+
+</body>
+</html>
